@@ -1,0 +1,376 @@
+<!DOCTYPE HTML>
+
+    <html lang="zh-Hans">
+  
+<head>
+  <meta charset="utf-8">
+  
+  <title>mysql for mac 中文乱码问题 | 不知是谁</title>
+  <meta name="author" content="苏小开">
+  
+  <meta name="description" content="#Mysql for mac 中文乱码问题最近需要使用Mysql,然后就在网上一堆教程中找到一个成功安装上了mysql,然后就很正常的遇到了中文乱码问题(真的很正常,只要不是国产大部分都需要处理中文乱码).在windows上用过mysql,在linux上也用过mysql还都知道怎样处理中文乱码(网上教程一大片).在mac上第一次,也就找了一些解决方法,但是无论怎么做无法改变什么最终的结果,最差的一次是mysql的服务竟然不能正常启动.现在终于找到正确的方法,和大家分享一下.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="mysql for mac 中文乱码问题"/>
+  <meta property="og:site_name" content="不知是谁"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  
+    <meta http-equiv="Content-Language" content="zh-Hans"/>
+  
+
+  <link href="/img/favicon.png" rel="icon">
+  
+    <link rel="apple-touch-icon" href="/img/apple-icon.ico">
+    <link rel="apple-touch-icon-precomposed" href="/img/apple-icon.ico">
+    
+
+  <link rel="alternate" href="/atom.xml" title="不知是谁" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+
+  
+  <!-- Chinese readability improment -->
+  <style type="text/css">
+    article {font-weight: 400;letter-spacing: .01rem;}
+    article .entry{line-height:2;}
+  </style>
+  
+  
+  <style type="text/css">
+  /* Tim Pietrusky advanced checkbox hack (Android <= 4.1.2) */
+body{ -webkit-animation: bugfix infinite 1s; }
+@-webkit-keyframes bugfix { from {padding:0;} to {padding:0;} }
+</style>
+
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-48887175-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+
+  
+    <!-- 360 Font and Baidu CDN in China -->
+    
+      <link href='http://fonts.useso.com/css?family=Open+Sans:300,400|Playball' rel='stylesheet' type='text/css'>
+    
+  <link href='http://apps.bdimg.com/libs/fontawesome/4.1.0/css/font-awesome.css' rel='stylesheet' type='text/css'>
+  <script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
+  
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="padding">
+	<div class="alignleft logo">
+	  <h1><a href="/">不知是谁</a></h1>
+	</div>
+	<nav id="main-nav" class="alignright">
+		<input type="checkbox" id="toggle" />
+		<label for="toggle" class="toggle" data-open="Main Menu" data-close="Close Menu" onclick><i class="fa fa-bars"></i></label>
+	  <ul class="menu">
+	    
+	      <li><a href="/">Home</a></li>
+	    
+	      <li><a href="/archives">Archives</a></li>
+	    
+	    
+	    	<li><a href="/atom.xml" target="_blank" title="bruce tan blog rss" class="rss-top"><i class="fa fa-rss"></i></a></li>
+	    
+	  </ul>
+	</nav>
+	<div class="clearfix"></div>
+</div>
+</header>
+  <div id="page-heading-wrap">
+  	<div class="inner">
+      <div class="padding">
+    		
+          <h1>mysql for mac 中文乱码问题</h1>
+          <ul>
+            <li>
+              <span class="heading-span">Posted on: </span>
+              <time datetime="2015-01-29T13:09:30.000Z">2015-01-29</time>
+            </li>
+            
+              <li>
+                <span class="heading-span">By: </span>
+
+                
+                  <a href="/">苏小开</a>
+                
+
+              </li>
+            
+            <li>
+              <span class="heading-span">With: </span>
+              
+
+                <a href="#ds-thread"><span class="ds-thread-count" data-thread-key="2015/01/29/mysql-for-mac/" data-count-type="comments"></span></a>
+              
+            </li>
+          </ul>
+        
+      </div>
+  	</div>
+  </div>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper" class="padding"><article class="post">
+  
+  
+    <div class="post-content">
+  
+      
+      <div class="entry">
+        
+          <p>#Mysql for mac 中文乱码问题<br>最近需要使用Mysql,然后就在网上一堆教程中找到一个成功安装上了mysql,然后就很正常的遇到了中文乱码问题(真的很正常,只要不是国产大部分都需要处理中文乱码).在windows上用过mysql,在linux上也用过mysql还都知道怎样处理中文乱码(网上教程一大片).在mac上第一次,也就找了一些解决方法,但是无论怎么做无法改变什么最终的结果,最差的一次是mysql的服务竟然不能正常启动.现在终于找到正确的方法,和大家分享一下.<br><a id="more"></a></p>
+<p>###我的系统版本:<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mac版本: OS X Yosemite <span class="number">10.10</span><span class="number">.2</span></span><br><span class="line">mysql版本: <span class="number">5.6</span><span class="number">.22</span></span><br></pre></td></tr></table></figure></p>
+<p>###最正确的作法是(亲测成功!!!)<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span><span class="class">.sudo</span> cp /usr/local/mysql/support-files/my-default<span class="class">.cnf</span> /etc/my<span class="class">.cnf</span></span><br><span class="line">  复制一个*.<span class="function"><span class="title">cnf</span><span class="params">(mysql配置文件)</span></span>至/etc/目录下.</span><br><span class="line"><span class="number">2</span><span class="class">.sudo</span> vim /etc/my<span class="class">.cnf</span></span><br><span class="line">  编辑my.cnf文件</span><br><span class="line"><span class="number">3</span>.在[mysqld]字段下加入</span><br><span class="line">  sql_mode=”TRADITIONAL” #注意如果sql_mode字段已经存在,则不需要加入本行</span><br><span class="line">  character_set_server=utf8</span><br><span class="line">  collation_server=utf8_bin</span><br><span class="line">  init_connect=<span class="string">'SET NAMES utf8'</span></span><br><span class="line">  skip-character-set-client-handshake</span><br><span class="line">  #******注意千万不能在[mysqld]字段下加入 default-character-set=utf8,否则会导致mysql服务无法启动</span><br><span class="line"><span class="number">4</span>.重新启动mysql服务</span><br></pre></td></tr></table></figure></p>
+<p>###附上我的my.cnf文件</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">#注意以'#'开头为注释,可以忽略</span><br><span class="line"># For advice on how to <span class="operator"><span class="keyword">change</span> <span class="keyword">settings</span> please see</span><br><span class="line"># <span class="keyword">http</span>://dev.mysql.com/doc/refman/<span class="number">5.6</span>/en/<span class="keyword">server</span>-configuration-<span class="keyword">defaults</span>.html</span><br><span class="line"></span><br><span class="line">[mysqld]</span><br><span class="line">character_set_server=utf8</span><br><span class="line">collation_server=utf8_bin</span><br><span class="line">init_connect=<span class="string">'SET NAMES utf8'</span></span><br><span class="line"><span class="keyword">skip</span>-<span class="built_in">character</span>-<span class="keyword">set</span>-<span class="keyword">client</span>-handshake# Remove <span class="keyword">leading</span></span><br><span class="line"># <span class="keyword">and</span> <span class="keyword">set</span> <span class="keyword">to</span> the amount <span class="keyword">of</span> RAM <span class="keyword">for</span> the most important <span class="keyword">data</span></span><br><span class="line"># <span class="keyword">cache</span> <span class="keyword">in</span> MySQL. <span class="keyword">Start</span> <span class="keyword">at</span> <span class="number">70</span>% <span class="keyword">of</span> total RAM <span class="keyword">for</span> dedicated <span class="keyword">server</span>, <span class="keyword">else</span> <span class="number">10</span>%.</span><br><span class="line"># innodb_buffer_pool_size = <span class="number">128</span><span class="keyword">M</span></span><br><span class="line"></span><br><span class="line"># Remove <span class="keyword">leading</span> # <span class="keyword">to</span> turn <span class="keyword">on</span> a very important <span class="keyword">data</span> integrity <span class="keyword">option</span>: <span class="keyword">logging</span></span><br><span class="line"># changes <span class="keyword">to</span> the <span class="built_in">binary</span> <span class="keyword">log</span> <span class="keyword">between</span> backups.</span><br><span class="line"># log_bin</span><br><span class="line"></span><br><span class="line"># These <span class="keyword">are</span> commonly <span class="keyword">set</span>, remove the # <span class="keyword">and</span> <span class="keyword">set</span> <span class="keyword">as</span> <span class="keyword">required</span>.</span><br><span class="line"># basedir = .....</span><br><span class="line"># datadir = .....</span><br><span class="line"># port = .....</span><br><span class="line"># server_id = .....</span><br><span class="line"># socket = .....</span><br><span class="line"></span><br><span class="line"># Remove <span class="keyword">leading</span> # <span class="keyword">to</span> <span class="keyword">set</span> options mainly useful <span class="keyword">for</span> reporting servers.</span><br><span class="line"># The <span class="keyword">server</span> <span class="keyword">defaults</span> <span class="keyword">are</span> faster <span class="keyword">for</span> transactions <span class="keyword">and</span> <span class="keyword">fast</span> SELECTs.</span><br><span class="line"># Adjust <span class="keyword">sizes</span> <span class="keyword">as</span> needed, experiment <span class="keyword">to</span> find the <span class="keyword">optimal</span> <span class="keyword">values</span>.</span><br><span class="line"># join_buffer_size = <span class="number">128</span><span class="keyword">M</span></span><br><span class="line"># sort_buffer_size = <span class="number">2</span><span class="keyword">M</span></span><br><span class="line"># read_rnd_buffer_size = <span class="number">2</span><span class="keyword">M</span></span><br><span class="line"></span><br><span class="line">sql_mode=NO_ENGINE_SUBSTITUTION,STRICT_TRANS_TABLES</span></span><br></pre></td></tr></table></figure>
+<p>如果你想了解更多请<a href="http://developer.blackberry.com/develop/platform_services/install_mysql_mac_os_x_environment.html" target="_blank" rel="external">http://developer.blackberry.com/develop/platform_services/install_mysql_mac_os_x_environment.html</a></p>
+
+        
+      </div>
+      <footer>
+        
+          
+  
+  <div class="categories">
+    <a href="/categories/mysql/">mysql</a>
+  </div>
+
+          
+  
+  <div class="tags">
+    <a href="/tags/mysql/">mysql</a>
+  </div>
+
+          <div class="share">
+  
+
+    
+      <div class="bdsharebuttonbox"><a href="#" class="bds_twi" data-cmd="twi" title="Share to Twitter"></a><a href="#" class="bds_fbook" data-cmd="fbook" title="Share to Facebook"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="Share to Wechat"></a><a href="#" class="bds_mail" data-cmd="mail" title="分享到邮件分享"></a><a href="#" class="bds_copy" data-cmd="copy" title="分享到复制网址"></a><a href="#" class="bds_sqq" data-cmd="sqq" title="Share to QQ Friends"></a><a href="#" class="bds_linkedin" data-cmd="linkedin" title="Share to linkedin"></a><a href="#" class="bds_youdao" data-cmd="youdao" title="分享到有道云笔记"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a><a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a></div>
+	  <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":["mshare","bdysc","tqq","bdxc","kaixin001","tqf","tieba","douban","tsohu","bdhome","sqq","thx","qq","ibaidu","taobao","hi","baidu","sohu","t163","qy","meilishuo","mogujie","diandian","huaban","leho","share189","duitang","hx","tfh","fx","youdao","sdo","qingbiji","ifeng","people","xinhua","ff","mail","kanshou","isohu","yaolan","wealink","xg","ty","iguba","fbook","twi","deli","s51","s139","linkedin","copy","print"],"bdPic":"","bdStyle":"1","bdSize":"24"},"share":{},"image":{"viewList":["twi","fbook","tsina","weixin","mail","copy","sqq","linkedin","youdao","qzone","renren","douban"],"viewText":"Share to","viewSize":"24"}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+    
+
+    
+
+    
+  
+</div>
+          
+
+        
+        <div class="clearfix"></div>
+      </footer>
+    </div>
+</article>
+
+
+
+<nav id="pagination" >
+    
+    <a href="/2015/10/20/hello-world/" class="alignleft prev" >上一頁</a>
+    
+    
+    <a href="/2014/12/22/Markdown/" class="alignright next" >下一頁</a>
+    
+    <div class="clearfix"></div>
+</nav>
+
+<section id="comment">
+  <h2 class="title">留言</h2>
+
+  
+
+  <!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="" data-title="" data-url=""></div>
+  <!-- 多说评论框 end -->
+  <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+  <script type="text/javascript">
+  var duoshuoQuery = {short_name:"snake"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0]
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+  </script>
+  <!-- 多说公共JS代码 end -->
+
+  
+</section>
+
+
+</div></div>
+    <aside id="sidebar" class="alignright"><div class="padding">
+	
+	  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" autocomplete="off" name="q" maxlength="20" results="0" placeholder="搜尋">
+    <input type="hidden" name="q" value="site:github.com/SuXiaoKai">
+  </form>
+</div>
+
+	
+	  
+<div class="widget category">
+  <h3 class="title">分類</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/Markdown/">Markdown</a><small>1</small></li>
+  
+    <li><a href="/categories/mysql/">mysql</a><small>1</small></li>
+  
+  </ul>
+</div>
+
+	
+	  
+<div class="widget recent-post">
+  <h3 class="title">最新文章</h3>
+  <ul class="entry">
+    
+      <li>
+        <a href="/2015/10/20/hello-world/">Hello World</a>
+      </li>
+    
+      <li>
+        <a href="/2015/01/29/mysql-for-mac/">mysql for mac 中文乱码问题</a>
+      </li>
+    
+      <li>
+        <a href="/2014/12/22/Markdown/">Markdown是这样练成的</a>
+      </li>
+    
+  </ul>
+</div>
+
+	
+	  
+<div class="widget tagcloud">
+  <h3 class="title">標籤雲</h3>
+  <div class="entry">
+    <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a>
+  </div>
+</div>
+
+	
+</div></aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="padding">
+	<div class="alignleft">
+	  
+	  Copyright&copy;2013-2015 <a href="http://snakeworker.github.io/">苏小开</a>
+	  
+	  | Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+	  and Theme by <a href="https://github.com/hijiangtao/dark-tech/" target="_blank">Dark-Tech</a> | <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1000257487'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s96.cnzz.com/z_stat.php%3Fid%3D1000257487' type='text/javascript'%3E%3C/script%3E"));</script>
+	</div>
+
+	<div class="alignright">
+		
+		
+			<a href="https://github.com/SuXiaoKai" target="_blank" title="苏小开 Github"><i class="fa fa-github-square"></i></a>
+		
+		
+		
+		
+		
+		
+			<a href="/atom.xml" target="_blank" title="苏小开 RSS"><i class="fa fa-rss-square"></i></a>
+		
+	</div>
+
+	<div class="clearfix"></div>
+</div>
+
+<div class="scroll-top"><i class="fa fa-arrow-circle-up"></i></div>
+</footer>
+  
+
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"snake"};
+(function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = 'http://static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+</script>
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/3.0.4/jquery.imagesloaded.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+<script type="text/javascript">
+$(window).scroll(function() {
+
+    if($(this).scrollTop() > 400) {
+        $('.scroll-top').fadeIn(200);
+    } else {
+        $('.scroll-top').fadeOut(200);
+    }
+});
+
+$('.scroll-top').bind('click', function(e) {
+    e.preventDefault();
+    $('body,html').animate({scrollTop:0},200);
+});
+</script>
+
+</body>
+</html>
